@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input id="search-text">
+    <button onclick="loadImg()">Search GIF</button>
+    <div id="frame"></div>
+
+    <script>
+
+
+
+        function loadImg() {
+
+            // create image element
+            const container = document.getElementById('frame');
+            while (container.lastChild) {
+                container.removeChild(container.lastChild);
+            }
+            
+            const img = document.createElement('img');
+            container.appendChild(img);
+
+            // search text
+            const input_text = document.getElementById('search-text').value;
+
+            console.log(input_text);
+
+            // fetch image
+            const urlRoot = 'https://api.giphy.com/v1/gifs/translate';
+            const api_free_key = 'EkYV551wobkMyNkQODfZ0VD6JbVTHvDv';
+
+            const newUrl = urlRoot + '?api_key=' + api_free_key + '&s=' + input_text;
+
+            fetch(newUrl, {mode: 'cors'})
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(response) {
+                img.src = response.data.images.original.url;
+            })
+            .catch(function(e) {
+                console.log(e);
+            });
+
+        }
+
+
+    </script>
+
+
+</body>
+</html>

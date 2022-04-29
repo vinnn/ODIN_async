@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button onclick="loadImg()">Next GIF</button>
+    <div id="frame"></div>
+
+    <script>
+
+
+
+        function loadImg() {
+
+            // create image element
+            const container = document.getElementById('frame');
+            while (container.lastChild) {
+                container.removeChild(container.lastChild);
+            }
+            
+            const img = document.createElement('img');
+            container.appendChild(img);
+
+
+            // fetch image
+            fetch('https://api.giphy.com/v1/gifs/translate?api_key=EkYV551wobkMyNkQODfZ0VD6JbVTHvDv&s=cats',
+            {mode: 'cors'})
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(response) {
+                img.src = response.data.images.original.url;
+            });
+
+        }
+
+
+    </script>
+
+
+</body>
+</html>
